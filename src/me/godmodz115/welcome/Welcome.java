@@ -31,10 +31,15 @@ public class Welcome extends JavaPlugin implements Listener
         Player player = (Player) sender;
         if (commandLabel.equalsIgnoreCase("hi"))
         {
-            player.sendMessage(ChatColor.getByChar(getConfig().getString("MESSAGE_COLOR"))
-                    + player.getDisplayName() + getConfig().getString("MESSAGE"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    formatMessage(getConfig().getString("MESSAGE"), player)));
             return true;
         }
         return false;
+    }
+
+    private String formatMessage(String string, Player player)
+    {
+        return string.replace("%p", player.getDisplayName());
     }
 }
