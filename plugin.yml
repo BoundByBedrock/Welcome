@@ -5,4 +5,4 @@ main: me.godmodz115.welcome.Welcome
 commands:
   hi:
     description: This is a greeting chat command.
-    usage: /hi
+    usage: "Usage: /hi <target player name>"

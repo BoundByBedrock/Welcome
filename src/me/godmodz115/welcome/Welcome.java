@@ -9,12 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Welcome extends JavaPlugin implements Listener
 {
-
     @Override
     public void onEnable()
     {
-        getConfig().options().copyDefaults(true);
-        saveConfig();
         getServer().getPluginManager().registerEvents(this, this);
         getLogger().info("Enabled!");
     }
@@ -31,15 +28,22 @@ public class Welcome extends JavaPlugin implements Listener
         Player player = (Player) sender;
         if (commandLabel.equalsIgnoreCase("hi"))
         {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    formatMessage(getConfig().getString("MESSAGE"), player)));
-            return true;
+            if (args.length != 1)
+            {
+                return false;
+            }
+            else if (args.length == 1)
+            {
+                player.chat(ChatColor.translateAlternateColorCodes('&',
+                        formatMessage(getConfig().getString("MESSAGE"), args[0])));
+                return true;
+            }
         }
         return false;
     }
 
-    private String formatMessage(String string, Player player)
+    private String formatMessage(String string, String recipient)
     {
-        return string.replace("%p", player.getDisplayName());
+        return string.replace("%p", recipient);
     }
 }
